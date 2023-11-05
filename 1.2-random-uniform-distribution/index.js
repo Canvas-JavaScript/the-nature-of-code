@@ -8,26 +8,27 @@ let stepsize=20;
 let arrRectHeight=[]
 let count=0;
 for(let i=0;i<innerWidth;i+=stepsize)
-    {
-        arrRectHeight.push(0)
-
-    }
+{
+    arrRectHeight.push(0)
+}
 function animate(){
+    c.clearRect(0,0,innerWidth,innerHeight)
     requestAnimationFrame(animate);
     let genRand=generateRandomInteger(0,innerWidth);
     count=0;
     for(let i=0;i<innerWidth;i+=stepsize)
     {
         if(genRand>=i && genRand<=i+stepsize){
-            arrRectHeight[count]+=10
+            arrRectHeight[count]+=2
         }
         count++;
     }
     count=0;
+    console.log(arrRectHeight)
     for(let i=0;i<innerWidth;i+=stepsize)
     {
         c.beginPath()
-        c.rect(i,innerHeight-arrRectHeight[count],i+stepsize,arrRectHeight[count]);
+        c.rect(i,innerHeight-arrRectHeight[count],stepsize,arrRectHeight[count]);
         c.stroke()
         count++;
     }
