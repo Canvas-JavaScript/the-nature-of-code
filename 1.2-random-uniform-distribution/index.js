@@ -24,7 +24,6 @@ function animate(){
         count++;
     }
     count=0;
-    console.log(arrRectHeight)
     for(let i=0;i<innerWidth;i+=stepsize)
     {
         c.beginPath()
