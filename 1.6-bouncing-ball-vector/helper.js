@@ -38,40 +38,40 @@ export function generateRandomInteger(min, max) {
     }
   }
   
-export class Pvector{
-constructor(x,y){
-this.x=x;
-this.y=y;
-}
-add(vec2){
-this.x+=vec2.x;
-this.y+=vec2.y;
-}
-sub(vec2){
-this.x-=vec2.x;
-this.y-=vec2.y;
-}
-subvector(vec2){
-let retvec=new Pvector(this.x,this.y)
-retvec.sub(vec2)
-return retvec;
-}
-mag(){
-  return Math.sqrt(this.x*this.x+this.y*this.y)
-}
-normalize(){
-let currmag=this.mag()
-if(currmag==0){
-this.x=1
-}
-else{
-  this.x=this.x/currmag;
-  this.y=this.y/currmag;
-}
-}
-setmag(num){
-  this.normalize()
-  this.x*=num;
-  this.y*=num;
-}
-}
+  export class Pvector{
+    constructor(x,y){
+    this.x=x;
+    this.y=y;
+    }
+    add(vec2){
+    this.x+=vec2.x;
+    this.y+=vec2.y;
+    }
+    sub(vec2){
+    this.x-=vec2.x;
+    this.y-=vec2.y;
+    }
+    subvector(vec2){
+    let retvec=new Pvector(this.x,this.y)
+    retvec.sub(vec2)
+    return retvec;
+    }
+    mag(){
+      return Math.sqrt(this.x*this.x+this.y*this.y)
+    }
+    normalize(){
+    let currmag=this.mag()
+    if(currmag==0){
+    this.x=1
+    }
+    else{
+      this.x=this.x/currmag;
+      this.y=this.y/currmag;
+    }
+    }
+    setmag(num){
+      this.normalize()
+      this.x*=num;
+      this.y*=num;
+    }
+    }
