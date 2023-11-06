@@ -1,4 +1,4 @@
-import {Pvector} from './helper.js'
+import {Pvector,lineTo} from './helper.js'
 let canvas=document.getElementById("canvas")
 let c=canvas.getContext("2d")
 canvas.width=innerWidth
@@ -10,15 +10,11 @@ let mouse=new Pvector(0,0)
 canvas.addEventListener("mousemove",(e)=>{
 mouse.x=e.clientX
 mouse.y=e.clientY
-console.log(mouse)
 })
 function animate(){
     c.clearRect(0,0,innerWidth,innerHeight)
     requestAnimationFrame(animate)
-    c.beginPath()
-    c.moveTo(center.x,center.y)
-    let centerToMouse=mouse.subvector(center)
-    c.lineTo(centerToMouse.x,centerToMouse.y)
-    c.stroke()
+    lineTo(c,center.x,center.y,mouse.x,mouse.y)
+
 }
 animate()
