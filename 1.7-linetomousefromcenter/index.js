@@ -15,6 +15,5 @@ function animate(){
     c.clearRect(0,0,innerWidth,innerHeight)
     requestAnimationFrame(animate)
     lineTo(c,center.x,center.y,mouse.x,mouse.y)
-
 }
 animate()
