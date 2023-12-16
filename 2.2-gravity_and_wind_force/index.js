@@ -18,11 +18,13 @@ update(){
 this.velocity.add(this.acceleration)
 this.location.add(this.velocity)
 this.acceleration.setmag(0)
-if(this.location.y+this.radius>innerHeight || this.location.y-this.radius<0){
+if(this.location.y+this.radius>=innerHeight || this.location.y-this.radius<=0){
 this.velocity.y*=-1
+this.location.add(this.velocity)
 }
-if(this.location.x+this.radius>innerWidth || this.location.x-this.radius<0){
+if(this.location.x+this.radius>=innerWidth || this.location.x-this.radius<=0){
     this.velocity.x*=-1
+    this.location.add(this.velocity)
 }
 }
 
@@ -35,11 +37,19 @@ c.stroke()
 
 let b1=new Ball()
 let gravity=new Pvector(0,0.2);
-let wind=new Pvector(2,0);
+let wind=new Pvector(1,0);
+canvas.addEventListener("mousedown",(e)=>{
+
+    b1.applyForce(wind)
+  
+
+})
+alert("mousedown to apply windforce to right")
 function animate(){
     c.clearRect(0,0,innerWidth,innerHeight)
     requestAnimationFrame(animate)
     b1.applyForce(gravity)
+    
     b1.update()
     b1.draw(c)
 }
