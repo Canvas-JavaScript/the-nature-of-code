@@ -55,6 +55,9 @@ export function generateRandomInteger(min, max) {
     this.x=x;
     this.y=y;
     }
+    copy(){
+      return new Pvector(this.x,this.y)
+    }
     add(vec2){
     this.x+=vec2.x;
     this.y+=vec2.y;
@@ -62,6 +65,14 @@ export function generateRandomInteger(min, max) {
     sub(vec2){
     this.x=this.x-vec2.x;
     this.y=this.y-vec2.y;
+    }
+    mult(num){
+      this.x=this.x*num;
+      this.y=this.y*num;
+    }
+    div(num){
+      this.x=this.x/num;
+      this.y=this.y/num;
     }
     subvector(vec2){
     let retvec=new Pvector(this.x,this.y)
