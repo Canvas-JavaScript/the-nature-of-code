@@ -56,7 +56,7 @@ draw(c){
 }
 }
 
-class Medium{
+class Fluid{
     constructor(x,y,xlen,ylen,coff){
         this.x=x;
         this.y=y;
@@ -93,15 +93,19 @@ class Medium{
 }
 
 // let ball1=new Ball()
-let med1=new Medium(0,innerHeight/2,innerWidth,innerHeight/2,0.5)
+let med1=new Fluid(0,innerHeight/2,innerWidth,innerHeight/2,0.5)
 let gravity=new Pvector(0,0.05)
 
 let ballarr=[]
-let balllen=20
+let balllen=10
 for(let i=0;i<balllen;i++){
 ballarr.push(new Ball())
 }
 
+
+document.addEventListener('click', function() {
+    location.reload();
+  });
 
 function animate(){
     c.clearRect(0,0,innerWidth,innerHeight)
