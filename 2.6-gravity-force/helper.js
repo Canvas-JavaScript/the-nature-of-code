@@ -119,4 +119,12 @@ export function generateRandomInteger(min, max) {
         this.setmag(num)
       }
     }
+    constrain(num1,num2){
+      if(this.mag()<=num1){
+        this.setmag(num1)
+      }
+      if(this.mag()>=num2){
+        this.setmag(num2)
+      }
+    }
     }

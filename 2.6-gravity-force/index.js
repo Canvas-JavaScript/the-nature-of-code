@@ -9,7 +9,7 @@ let c=canvas.getContext("2d")
 
 class Planet{
 constructor(){
-    this.radius=generateRandomInteger(30,50)
+    this.radius=generateRandomInteger(10,20)
     this.mass=this.radius*10
     this.color=getRandomColor()
     this.location=new Pvector(generateRandomInteger(this.radius,innerWidth-this.radius),generateRandomInteger(this.radius,innerHeight-this.radius))

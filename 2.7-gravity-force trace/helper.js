@@ -11,9 +11,9 @@ export function getRandomColor() {
   var red = Math.floor(Math.random() * 256);
   var green = Math.floor(Math.random() * 256);
   var blue = Math.floor(Math.random() * 256);
-
+  var color= "rgba("+red+","+ green+","+blue+","+"1)"
   // Convert the values to hexadecimal and format the color string
-  var color = '#' + red.toString(16) + green.toString(16) + blue.toString(16);
+  // var color = '#' + red.toString(16) + green.toString(16) + blue.toString(16);
 
   return color;
 }
@@ -119,4 +119,54 @@ export function generateRandomInteger(min, max) {
         this.setmag(num)
       }
     }
+    constrain(num1,num2){
+      if(this.mag()<=num1){
+        this.setmag(num1)
+      }
+      if(this.mag()>=num2){
+        this.setmag(num2)
+      }
     }
+    }
+
+
+    export class Queue {
+      constructor() {
+        this.items = [];
+      }
+    
+      enqueue(element) {
+        this.items.push(element);
+      }
+    
+      dequeue() {
+        if (this.isEmpty()) {
+          return "Queue is empty";
+        }
+        return this.items.shift();
+      }
+    
+      front() {
+        if (this.isEmpty()) {
+          return "Queue is empty";
+        }
+        return this.items[0];
+      }
+    
+      isEmpty() {
+        return this.items.length === 0;
+      }
+    
+      size() {
+        return this.items.length;
+      }
+    
+      // Access i-th element without removing it
+      accessElement(index) {
+        if (index < 0 || index >= this.size()) {
+          return "Invalid index";
+        }
+        return this.items[index];
+      }
+    }
+    
