@@ -11,7 +11,6 @@ class Planet{
 constructor(){
     this.velrand=3
     this.radius=generateRandomInteger(30,40)
-    
     this.location=new Pvector(generateRandomInteger(this.radius,innerWidth-this.radius),generateRandomInteger(this.radius,innerHeight-this.radius))
     this.velocity=new Pvector(generateRandomInteger(-1*this.velrand,this.velrand),generateRandomInteger(-1*this.velrand,this.velrand))
     this.acceleration=new Pvector(0,0)
@@ -21,7 +20,13 @@ constructor(){
     this.length=generateRandomInteger(30,40)
     this.width=generateRandomInteger(30,40)
     this.mass=(this.length*this.width)/100
-    this.angvel=generateRandomInteger(10,15)
+    if(Math.random()>0.5){
+        this.angvel=generateRandomInteger(10,15)
+    }
+    else{
+        this.angvel=generateRandomInteger(-10,-15)
+    }
+    
 }
 applyForce(force){
     let forcecopy=force.copy()
@@ -76,8 +81,8 @@ class Star{
 }
 
 let star1=new Star()
-let planet1=new Planet()
-let numofplan=10
+// let planet1=new Planet()
+let numofplan=200*Math.random()
 let planetarr=[]
 for(let i=0;i<numofplan;i++){
     planetarr.push(new Planet())
