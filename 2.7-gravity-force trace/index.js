@@ -84,7 +84,7 @@ class Star{
         this.radius=generateRandomInteger(50,60)
         this.mass=this.radius*300
         this.G=1
-        this.color="rgba(169, 169, 169, 0.01)"
+        this.color="rgba(0, 0, 0, 0.2)"
         this.location=new Pvector(innerWidth/2,innerHeight/2)
         this.velocity=new Pvector(0,0)
         this.acceleration=new Pvector(0,0)
