@@ -1,4 +1,4 @@
-import {Pvector, generateRandomInteger} from './helper.js'
+import {Pvector, generateGaussianRandom, generateRandomInteger} from './helper.js'
 const body=document.getElementsByTagName("body")[0]
 const canvas=document.createElement("canvas")
 body.appendChild(canvas)
@@ -13,7 +13,7 @@ constructor(){
     this.velocity=new Pvector(0,0)
     this.acceleration=new Pvector(0,0)
     this.maxagentspeed=2
-    this.maxsteerinfroce=1
+    this.maxsteerinfroce=generateGaussianRandom(2,1)
     this.radius=10;
 }
 applyForce(force,issteeringforce=false){
@@ -30,6 +30,13 @@ this.location.add(this.velocity)
 this.acceleration.setmag(0)
 }
 draw(c){
+    this.dir=this.velocity.copy()
+        this.dir.setmag(20)
+        this.dir.add(this.location)
+        c.beginPath()
+        c.moveTo(this.location.x,this.location.y)
+        c.lineTo(this.dir.x,this.dir.y)
+        c.stroke()
 c.beginPath()
 c.arc(this.location.x,this.location.y,this.radius,0,Math.PI*2,false)
 c.stroke()
