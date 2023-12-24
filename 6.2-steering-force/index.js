@@ -13,11 +13,12 @@ constructor(){
     this.velocity=new Pvector(0,0)
     this.acceleration=new Pvector(0,0)
     this.maxagentspeed=2
-    this.maxsteerinfroce=generateGaussianRandom(2,1)
+    this.maxsteerinfroce=generateGaussianRandom(2,5)()
     this.radius=10;
 }
 applyForce(force,issteeringforce=false){
 if(issteeringforce){
+    
 force.limit(this.maxsteerinfroce)
 }
 this.acceleration.add(force)
@@ -46,20 +47,36 @@ c.stroke()
 
 
 let ag1=new Agent()
+let agarr=[]
+let numofagents=10
+for(let i=0;i<numofagents;i++){
+    agarr.push(new Agent())
+}
 let mousepos=new Pvector(0,0)
 canvas.addEventListener("mousemove",(e)=>{
     mousepos.x=e.clientX
     mousepos.y=e.clientY
 })
 
+
 function animate(){
     c.clearRect(0,0,innerWidth,innerHeight)
     requestAnimationFrame(animate)
     let desiredvel=mousepos.subvector(ag1.location)
-  
     let steeringforce=desiredvel.subvector(ag1.velocity)
     ag1.applyForce(steeringforce,true)
     ag1.update()
     ag1.draw(c)
+
+
+    for(let i=0;i<numofagents;i++){
+        let desiredvel=mousepos.subvector(agarr[i].location)
+    let steeringforce=desiredvel.subvector(agarr[i].velocity)
+    agarr[i].applyForce(steeringforce,true)
+    agarr[i].update()
+    agarr[i].draw(c)
+    }
+
+
 }
 animate()
