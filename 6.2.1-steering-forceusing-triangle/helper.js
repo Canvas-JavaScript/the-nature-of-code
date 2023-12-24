@@ -127,9 +127,45 @@ export function generateRandomInteger(min, max) {
         this.setmag(num2)
       }
     }
+    angle(){
+      return Math.atan(this.y/this.x)
+    }
     }
 
-
+    export function drawArrow(c,direction,mainvelocity,radangle,size){
+      let velocity1=mainvelocity.copy()
+      velocity1.setmag(velocity1.mag()*-1)
+      velocity1.setmag(size)
+      let x2=Math.cos(radangle)*velocity1.x-Math.sin(radangle)*velocity1.y
+      let y2=Math.sin(radangle)*velocity1.x+Math.cos(radangle)*velocity1.y
+      velocity1=new Pvector(x2,y2)
+      velocity1.add(direction)
+     
+  
+      let velocity2=mainvelocity.copy()
+      velocity2.setmag(velocity2.mag()*-1)
+      velocity2.setmag(size)
+      let x3=Math.cos(-1*radangle)*velocity2.x-Math.sin(-1*radangle)*velocity2.y
+      let y3=Math.sin(-1*radangle)*velocity2.x+Math.cos(-1*radangle)*velocity2.y
+      velocity2=new Pvector(x3,y3)
+      velocity2.add(direction)
+  
+  
+      c.beginPath()
+      c.moveTo(direction.x,direction.y)
+      c.lineTo(velocity1.x,velocity1.y)
+      c.stroke()
+      
+      c.beginPath()
+      c.moveTo(direction.x,direction.y)
+      c.lineTo(velocity2.x,velocity2.y)
+      c.stroke()
+  
+      c.beginPath()
+      c.moveTo(velocity1.x,velocity1.y)
+      c.lineTo(velocity2.x,velocity2.y)
+      c.stroke()
+  }
     export class Queue {
       constructor() {
         this.items = [];

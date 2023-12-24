@@ -1,4 +1,4 @@
-import {Pvector} from './helper.js'
+import {Pvector,drawArrow} from './helper.js'
 const body=document.getElementsByTagName("body")[0]
 const canvas=document.createElement("canvas")
 body.appendChild(canvas)
@@ -36,16 +36,11 @@ class Agent
     }
     draw(c)
     {
+        let size=20
         this.dir=this.velocity.copy()
-        this.dir.setmag(20)
+        this.dir.setmag(size)
         this.dir.add(this.location)
-        c.beginPath()
-        c.moveTo(this.location.x,this.location.y)
-        c.lineTo(this.dir.x,this.dir.y)
-        c.stroke()
-        c.beginPath()
-        c.arc(this.location.x,this.location.y,this.radius,0,Math.PI*2,false)
-        c.stroke()
+        drawArrow(c,this.dir,this.velocity.copy(),15*Math.PI/180,size)
     }
 }
 
@@ -71,4 +66,5 @@ function animate(){
     ag1.update()
     ag1.draw(c)
 }
+
 animate()
