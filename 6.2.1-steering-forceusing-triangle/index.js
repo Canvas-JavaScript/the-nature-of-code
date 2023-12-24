@@ -1,4 +1,4 @@
-import {Pvector,drawArrow} from './helper.js'
+import {Pvector,drawArrow, generateGaussianRandom} from './helper.js'
 const body=document.getElementsByTagName("body")[0]
 const canvas=document.createElement("canvas")
 body.appendChild(canvas)
@@ -49,22 +49,29 @@ class Agent
 
 let ag1=new Agent(innerWidth/2,innerHeight/2)
 
+let agarr=[]
+for(let i=0;i<10;i++){
+    agarr.push(new Agent(generateGaussianRandom(innerWidth/2,10)(),generateGaussianRandom(innerHeight/2,10)()))
+}
+
 let mousepos=new Pvector(0,0)
 document.addEventListener("mousemove",(e)=>{
 mousepos.x=e.clientX
 mousepos.y=e.clientY
 })
 
-
+console.log(agarr)
 
 function animate(){
     c.clearRect(0,0,innerWidth,innerHeight)
     requestAnimationFrame(animate)
-    let desiredvel=mousepos.subvector(ag1.location)
-    let steeringforce=desiredvel.subvector(ag1.velocity)
-    ag1.applyForce(steeringforce)
-    ag1.update()
-    ag1.draw(c)
+    for(let i=0;i<agarr.length;i++){
+    let desiredvel=mousepos.subvector(agarr[i].location)
+    let steeringforce=desiredvel.subvector(agarr[i].velocity)
+    agarr[i].applyForce(steeringforce)
+    agarr[i].update()
+    agarr[i].draw(c)
+    }
 }
 
 animate()
