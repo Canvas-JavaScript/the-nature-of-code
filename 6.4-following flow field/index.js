@@ -48,7 +48,7 @@ class Grid{
         for(let i=0;i<this.rows;i++){
             this.grid.push([])
             for(let j=0;j<this.cols;j++){
-                this.grid[i].push(new singleField(i*this.resolution,j*this.resolution,generateRandomInteger(-45,45),2))
+                this.grid[i].push(new singleField(i*this.resolution,j*this.resolution,generateRandomInteger(135,225),2))
             }
         }
 
@@ -114,13 +114,13 @@ class Agent{
             this.location.x=1
         }
         if(this.location.x<=0){
-            this.location.x=innerWidth
+            this.location.x=innerWidth-1
         }
         if(this.location.y>=innerHeight){
             this.location.y=1
         }
         if(this.location.y<=0){
-            this.location.y=innerHeight
+            this.location.y=innerHeight-1
         }
     }
     draw(c){
