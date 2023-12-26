@@ -128,12 +128,17 @@ export function generateRandomInteger(min, max) {
       }
     }
     angle(){
-      return Math.atan(this.y/this.x)
+      if(this.x<0){
+        return Math.PI+Math.atan(this.y/this.x)
+      }
+      else{
+        return Math.atan(this.y/this.x)
+      }
     }
     setAngle(angle){
       let mag=this.mag()
-      this.x=1
-      this.y=this.x*Math.tan(angle)
+      this.x=Math.cos(angle)
+      this.y=Math.sin(angle)
       this.setmag(mag)
     }
     }
