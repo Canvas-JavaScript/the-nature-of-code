@@ -128,43 +128,41 @@ export function generateRandomInteger(min, max) {
       }
     }
     angle(){
-      return Math.atan(this.y/this.x)
+      if(this.x<0){
+        return Math.PI+Math.atan(this.y/this.x)
+      }
+      else{
+        return Math.atan(this.y/this.x)
+      }
+    }
+    setAngle(angle){
+      let mag=this.mag()
+      this.x=Math.cos(angle)
+      this.y=Math.sin(angle)
+      this.setmag(mag)
     }
     }
 
-    export function drawArrow(c,direction,mainvelocity,radangle,size){
-      let velocity1=mainvelocity.copy()
-      velocity1.setmag(velocity1.mag()*-1)
-      velocity1.setmag(size)
-      let x2=Math.cos(radangle)*velocity1.x-Math.sin(radangle)*velocity1.y
-      let y2=Math.sin(radangle)*velocity1.x+Math.cos(radangle)*velocity1.y
-      velocity1=new Pvector(x2,y2)
-      velocity1.add(direction)
-     
+    export function drawArrow(ctx,x, y, length, angle) {
+      var radians=angle
+      // Calculate arrow coordinates
+      var x2 = x + length * Math.cos(radians);
+      var y2 = y + length * Math.sin(radians);
   
-      let velocity2=mainvelocity.copy()
-      velocity2.setmag(velocity2.mag()*-1)
-      velocity2.setmag(size)
-      let x3=Math.cos(-1*radangle)*velocity2.x-Math.sin(-1*radangle)*velocity2.y
-      let y3=Math.sin(-1*radangle)*velocity2.x+Math.cos(-1*radangle)*velocity2.y
-      velocity2=new Pvector(x3,y3)
-      velocity2.add(direction)
+      // Draw the line
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
   
-  
-      c.beginPath()
-      c.moveTo(direction.x,direction.y)
-      c.lineTo(velocity1.x,velocity1.y)
-      c.stroke()
-      
-      c.beginPath()
-      c.moveTo(direction.x,direction.y)
-      c.lineTo(velocity2.x,velocity2.y)
-      c.stroke()
-  
-      c.beginPath()
-      c.moveTo(velocity1.x,velocity1.y)
-      c.lineTo(velocity2.x,velocity2.y)
-      c.stroke()
+      // Draw the arrowhead
+      var arrowSize = 5;
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - arrowSize * Math.cos(radians - Math.PI / 6), y2 - arrowSize * Math.sin(radians - Math.PI / 6));
+      ctx.lineTo(x2 - arrowSize * Math.cos(radians + Math.PI / 6), y2 - arrowSize * Math.sin(radians + Math.PI / 6));
+      ctx.closePath();
+      ctx.fill();
   }
     export class Queue {
       constructor() {
@@ -205,4 +203,53 @@ export function generateRandomInteger(min, max) {
         return this.items[index];
       }
     }
-    
+    export function  drawTriangle(ctx,x1,y1,x2,y2,size){//x2,y2 is the direction in which triangle is drawn  and x1,y1, is kind of like the center
+      let location=new Pvector(x1,y1)
+      let direction=new Pvector(x2,y2)
+      direction.sub(location)
+      direction.setmag(size)
+      let angle=10
+      angle=angle*Math.PI/180
+      
+      
+      // /_\ ax,ay is the head  x1,y1 is the center
+      let a=direction.copy()
+      a.add(location)
+     
+      
+      
+      // ctx.beginPath()
+      // ctx.moveTo(x1,y1)
+      // ctx.lineTo(a.x,a.y)
+      // ctx.stroke()
+      
+      // /_\ bx,by is the left size  x1,y1 is the center
+      
+      let b=direction.copy()
+      let bangle=b.angle()
+      b.setAngle(bangle+angle)
+      b.setmag(2*size)
+      b.mult(-1)
+      b.add(a)
+      ctx.beginPath()//connection a to b
+      ctx.moveTo(a.x,a.y)
+      ctx.lineTo(b.x,b.y)
+      ctx.stroke()
+      
+      // /_\ cx,cy is the right size  x1,y1 is the center
+      let c=direction.copy()
+      let cangle=c.angle()
+      c.setAngle(cangle-angle)
+      c.setmag(2*size)
+      c.mult(-1)
+      c.add(a)
+      ctx.beginPath()//connection a to c
+      ctx.moveTo(a.x,a.y)
+      ctx.lineTo(c.x,c.y)
+      ctx.stroke()
+      
+      ctx.beginPath()//connection b to c
+      ctx.moveTo(b.x,b.y)
+      ctx.lineTo(c.x,c.y)
+      ctx.stroke()
+      }
