@@ -31,11 +31,9 @@ class Grid{
             }
         }
     }   
-    giveVelocity(velocity){
-        let x=Math.floor(velocity.x/this.resolution)
-        let y=Math.floor(velocity.y/this.resolution)
-        console.log(x,y)
-        console.log(this.grid[x][y].field)
+    giveVelocity(location){
+        let x=Math.floor(location.x/this.resolution)
+        let y=Math.floor(location.y/this.resolution)
         return this.grid[x][y].field.copy()
     }
     draw(c){
@@ -149,9 +147,6 @@ let g1=new Grid()
 let agarr=[]
 agarr.push(new Agent(innerWidth/2,innerHeight/2))
 
-// canvas.addEventListener("click",(e)=>{
-// agarr.push(new Agent(e.clientX,e.clientY))
-// })
 function animate(){
     c.clearRect(0,0,innerWidth,innerHeight)
     requestAnimationFrame(animate)

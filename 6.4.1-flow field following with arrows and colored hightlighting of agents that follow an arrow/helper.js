@@ -215,7 +215,7 @@ export function generateRandomInteger(min, max) {
       // /_\ ax,ay is the head  x1,y1 is the center
       let a=direction.copy()
       a.add(location)
-      console.log(x1,y1,a)
+     
       
       
       // ctx.beginPath()
