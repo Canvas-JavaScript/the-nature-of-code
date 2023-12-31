@@ -141,6 +141,13 @@ export function generateRandomInteger(min, max) {
       this.y=Math.sin(angle)
       this.setmag(mag)
     }
+    dotproduct(vec2){
+      return this.x*vec2.x+this.y*vec2.y;
+    }
+    angleBetweenTwoVectors(vec2){
+      let temp=this.dotproduct(vec2)/(this.mag()*vec2.mag())
+      return Math.acos(temp)
+    }
     }
 
     export function drawArrow(ctx,x, y, length, angle) {
