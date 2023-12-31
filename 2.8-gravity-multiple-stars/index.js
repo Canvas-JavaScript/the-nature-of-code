@@ -10,13 +10,13 @@ class Star{
         this.location=new Pvector(x,y)
         this.velocity=new Pvector(0,0)
         this.acceleration=new Pvector(0,0)
-        this.radius=100
-        this.mass=this.radius
+        this.radius=30
+        this.mass=this.radius*10
         this.G=1
     }
     generateForce(planet){
         let force=this.location.subvector(planet.location)
-        force.limit(50)
+        force.constrain(200,250)
         let dist=force.mag()
         force.normalize()
         force.setmag(this.G*this.mass*planet.mass/(dist*dist))
@@ -33,12 +33,11 @@ class Star{
 }
 class Planet{
     constructor(){
-        this.radius=generateRandomInteger(20,40)
+        this.radius=generateRandomInteger(5,10)
         this.location=new Pvector(generateRandomInteger(this.radius,innerWidth-this.radius),generateRandomInteger(this.radius,innerHeight-this.radius))
-        console.log(this.location)
-        this.velocity=new Pvector(generateGaussianRandom(0.1,2)(),generateGaussianRandom(0.1,2)())
+        this.velocity=new Pvector(generateRandomInteger(-1,1),generateRandomInteger(-1,1))
         this.acceleration=new Pvector(0,0)
-        this.mass=this.radius/10
+        this.mass=this.radius
         this.color=getRandomColor()
     }
     applyForce(force){
@@ -67,23 +66,24 @@ for(let i=0;i<numofplanets;i++){
     planarr.push(new Planet())
 }
 
-let star1=new Star(innerWidth/3,innerHeight/3)
-let star2=new Star(2*innerWidth/3,innerHeight/3)
-let star3=new Star(innerWidth/3,2*innerHeight/3)
-let star4=new Star(2*innerWidth/3,2*innerHeight/3)
+let star1=new Star(innerWidth/3,innerHeight/2)
+let star2=new Star(2*innerWidth/3,innerHeight/2)
+// let star3=new Star(innerWidth/3,2*innerHeight/3)
+// let star4=new Star(2*innerWidth/3,2*innerHeight/3)
 function animate(){
+    canvas.width=innerWidth
     canvas.height=innerHeight
     requestAnimationFrame(animate)
 
     star1.draw(c)
     star2.draw(c)
-    star3.draw(c)
-    star4.draw(c)
+    // star3.draw(c)
+    // star4.draw(c)
     for(let i=0;i<numofplanets;i++){
         planarr[i].applyForce(star1.generateForce(planarr[i]))
         planarr[i].applyForce(star2.generateForce(planarr[i]))
-        planarr[i].applyForce(star3.generateForce(planarr[i]))
-        planarr[i].applyForce(star4.generateForce(planarr[i]))
+        // planarr[i].applyForce(star3.generateForce(planarr[i]))
+        // planarr[i].applyForce(star4.generateForce(planarr[i]))
         planarr[i].update()
         planarr[i].draw(c)
 
