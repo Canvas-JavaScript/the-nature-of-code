@@ -1,4 +1,4 @@
-import {Pvector, getRandomColor} from './helper.js'
+import {Pvector, generateRandomInteger, getRandomColor} from './helper.js'
 const body=document.getElementsByTagName("body")[0]
 const canvas=document.createElement("canvas")
 const c=canvas.getContext("2d")
@@ -11,19 +11,33 @@ canvas.height=innerHeight
 class Agent{
 constructor(x,y){
     this.location=new Pvector(x,y)
-    this.velocity=new Pvector(2,2)
+    this.velocity=new Pvector(generateRandomInteger(-30,30)/5,generateRandomInteger(-30,30)/5)
     this.acceleration=new Pvector(0,0)
     this.radius=15
     this.velocitylimit=3
     this.color=getRandomColor()
-    // this.forcelimit=0.1
+    this.forcelimit=10
 }
 applyForce(force){
-    // force.limit(this.forcelimit)
+    force.limit(this.forcelimit)
     this.acceleration.add(force)
 }
-align(){
-
+align(alginradius,agarr,curr){ 
+    let desiredvel=new Pvector(0,0)
+    for(let i=0;i<agarr.length;i++){
+        if(i!=curr){
+            let dist=this.location.subvector(agarr[i].location)
+            if(dist.mag()<alginradius){
+                desiredvel.add(agarr[i].velocity)
+            }
+        }
+    }
+    
+    let steeringforce=desiredvel.subvector(this.velocity)
+    if(desiredvel.mag()!=0){
+        this.applyForce(steeringforce)
+    }
+   
 }
 update(){
     this.velocity.add(this.acceleration)
@@ -56,7 +70,7 @@ draw(c){
 }
 }
 
-
+alert("click and drag to create agents")
 
 
 let isDragging = false;
@@ -86,10 +100,33 @@ function handleMouseUp() {
 canvas.addEventListener('mousedown', handleMouseDown);
 
 
+const numberInput = document.getElementById('numberInput');
+  const booleanInput = document.getElementById('booleanInput');
+
+  // Add event listeners to the inputs
+  numberInput.addEventListener('input', updateNumber);
+  booleanInput.addEventListener('change', updateBoolean);
+
+  // Function to update the number value
+  function updateNumber() {
+    alignradius = parseFloat(numberInput.value);
+  }
+
+  // Function to update the boolean value
+  function updateBoolean() {
+    align = booleanInput.checked;
+  }
+
+
+
 
 
 
 let agarr=[]
+let alignradius=25
+numberInput.value=alignradius
+let align=true
+booleanInput.checked=align
 agarr.push(new Agent(innerWidth/2,innerHeight/2))
 
 function animate(){
@@ -98,7 +135,11 @@ function animate(){
     for(let i=0;i<agarr.length;i++){
         agarr[i].update()
         agarr[i].draw(c)
+        if(align){
+            agarr[i].align(alignradius,agarr,i)
+        }
     }
+    
     
 }   
 
