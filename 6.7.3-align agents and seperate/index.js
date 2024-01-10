@@ -21,6 +21,25 @@ applyForce(force){
     // force.limit(this.forcelimit)
     this.acceleration.add(force)
 }
+seperate(seperationradius,agarr,curr){
+let desiredvel=new Pvector(0,0)
+    for(let i=0;i<agarr.length;i++){
+        if(i!=curr){
+            let dist=agarr[i].location.subvector(this.location)
+            if(dist.mag()<seperationradius){
+                let tempvel=dist.copy()
+                tempvel.setmag(-100/(dist.mag()))
+                desiredvel.add(tempvel)
+            }
+        }
+    }
+    if(desiredvel.mag()!=0){
+        let steeringforce=desiredvel.subvector(this.velocity)
+        this.applyForce(steeringforce)
+    }
+}
+
+
 align(alignradius,agarr,curr){
     let desiredvel=new Pvector(0,0)
     for(let i=0;i<agarr.length;i++){
@@ -29,7 +48,6 @@ align(alignradius,agarr,curr){
             if(dist.mag()<alignradius){
                 desiredvel.add(agarr[i].velocity)
             }
-            
         }
     }
     if(desiredvel.mag()!=0){
@@ -82,7 +100,7 @@ draw(c){
 let agarr=[]
 let agsize=100
 let alignradius=100
-
+let seperateradius=100
 for(let i=0;i<agsize;i++){
 agarr.push(new Agent(generateRandomInteger(1,innerWidth-1),generateRandomInteger(1,innerHeight-1)))
 }
@@ -95,6 +113,7 @@ function animate(){
     requestAnimationFrame(animate)
     for(let i=0;i<agsize;i++){
         agarr[i].align(alignradius,agarr,i)
+        agarr[i].seperate(seperateradius,agarr,i)
         agarr[i].update()
         agarr[i].draw(c)
 
