@@ -61,6 +61,14 @@ boundary(){
     }
 }
 draw(c){
+    let dir=this.velocity.copy()
+    dir.setmag(this.radius*2)
+    dir.add(this.location)
+    c.beginPath()
+    c.moveTo(this.location.x,this.location.y)
+    c.lineTo(dir.x,dir.y)
+    c.stroke()
+
     c.beginPath()
     c.arc(this.location.x,this.location.y,this.radius,0,Math.PI*2,false)
     c.fillStyle=this.color
