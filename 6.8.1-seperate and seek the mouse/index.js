@@ -14,7 +14,7 @@ class Agent{
         this.acceleration=new Pvector(0,0)
         this.radius=10
         this.velocitylimit=4
-        this.forcelimit=0.1
+        this.forcelimit=20
     }
     seek(location){
         let desiredvel=location.subvector(this.location)
