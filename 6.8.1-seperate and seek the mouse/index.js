@@ -45,7 +45,7 @@ class Agent{
         let seekingforce=this.seek(location)
         let seperationforce=this.seperate(agarr,curr,70)
         seekingforce.mult(1)
-        seperationforce.mult(1000)
+        seperationforce.mult(2)
         this.applyForce(seekingforce)
         this.applyForce(seperationforce)
     }
